@@ -1,0 +1,6 @@
+E:\好期待项目远吗\Hao.DataContext\bin\Debug\Hao.DataContext.dll
+E:\好期待项目远吗\Hao.DataContext\bin\Debug\Hao.DataContext.pdb
+E:\好期待项目远吗\Hao.DataContext\obj\Debug\3-Hao.DataContext.csprojAssemblyReference.cache
+E:\好期待项目远吗\Hao.DataContext\obj\Debug\3-Hao.DataContext.csproj.CoreCompileInputs.cache
+E:\好期待项目远吗\Hao.DataContext\obj\Debug\Hao.DataContext.dll
+E:\好期待项目远吗\Hao.DataContext\obj\Debug\Hao.DataContext.pdb

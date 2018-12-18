@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bcb9245123c0446d87726e194e94f6d1" Name="Diagram1">
+        <EntityTypeShape EntityType="Hao.Context.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.DoctorInfoClinicalTrial" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.MatchQuestion" Width="1.5" PointX="15.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.MatchRecord" Width="1.5" PointX="13" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.MatchRemarks" Width="1.5" PointX="18.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.News" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.Patient" Width="1.5" PointX="10.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.PatientFile" Width="1.5" PointX="13" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysClinicalGroup" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysClinicalSimple" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysClinicalTrial" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysDictionary" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysDisease" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysDoctorInfo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysOption" Width="1.5" PointX="5.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysQuestion" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysRelated" Width="1.5" PointX="7.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hao.Context.SysUser" Width="1.5" PointX="10.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_DoctorInfoClinicalTrial_dbo_SysClinicalTrial_SysClinicalTrialId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_DoctorInfoClinicalTrial_dbo_SysDoctorInfo_SysDoctorInfoId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchQuestion_dbo_MatchRecord_MatchingInfoId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchRecord_dbo_Patient_PatientId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchRemarks_dbo_MatchRecord_MatchRecord_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchRemarks_dbo_Patient_PatientId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchRemarks_dbo_SysUser_CreatorUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_MatchRemarks_dbo_SysUser_LastModifierUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_News_dbo_SysClinicalTrial_ClinicalTrialId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_PatientFile_dbo_Patient_PatientId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_PatientFile_dbo_SysUser_CreatorUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalGroup_dbo_SysClinicalTrial_SysClinicalTrialId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalGroup_dbo_SysQuestion_SysQuestionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalSimple_dbo_SysClinicalTrial_SysClinicalTrialId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalSimple_dbo_SysQuestion_SysQuestionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_DrugTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_ExperimentalStagingId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_MedicationTimeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentAgencyId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentHospitalId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitStatueId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_SponsorId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysClinicalTrial_dbo_SysDictionary_TreatmentTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysQuestion_dbo_SysDictionary_QuestionTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysDisease_dbo_SysDisease_ParentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysDoctorInfo_dbo_SysDoctorInfo_ParentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysOption_dbo_SysQuestion_SysQuestionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.FK_dbo_SysRelated_dbo_SysOption_SysOption_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Hao.Context.SysClinicalTrialSysDictionary" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

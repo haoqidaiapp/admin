@@ -1,0 +1,139 @@
+﻿<section class="Hui-article-box" id="app">
+    <div class="row">
+        <nav class="breadcrumb">
+            <i class="Hui-iconfont"></i> 首页
+            <span class="c-gray en">&gt;</span>
+            资讯管理
+            <span class="c-gray en">&gt;</span>
+            资讯列表
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont"></i></a>
+        </nav>
+        <div class="Hui-article">
+            <article class="cl pd-20">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered radius  table-bg">
+                        <thead>
+                            <tr class="text-c" role="row">
+                                <th>ID</th>
+                                <th>昵称</th>
+                                <th>账号</th>
+                                <th>用户编号</th>
+                                <th>家庭住址</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in list" class="text-c odd" role="row">
+                                <td class="">{{item.Id}}</td>
+                                <td class="">{{item.NickName}}</td>
+                                <td class="">{{item.Account}}</td>
+                                <td class="">{{item.Number}}</td>
+                                <td class="">{{item.Address}}</td>
+                                <td class="">{{item.IsDeleted}}</td>
+                                <td class="">2018-10-12 16:55:48</td>
+                                <td class="f-14 product-brand-manage">
+                                    <a style="text-decoration:none" href="javascript:;" title="编辑"><i class="Hui-iconfont"></i></a>
+                                    <a style="text-decoration:none" class="ml-5" href="javascript:;" title="删除"><i class="Hui-iconfont"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="float:right" id="pager"></div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div class="row">
+        <nav class="breadcrumb">
+            <i class="Hui-iconfont"></i> 首页
+            <span class="c-gray en">&gt;</span>
+            资讯管理
+            <span class="c-gray en">&gt;</span>
+            资讯列表
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont"></i></a>
+        </nav>
+        <div class="Hui-article">
+            <article class="cl pd-20">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered radius  table-bg">
+                        <thead>
+                            <tr class="text-c" role="row">
+                                <th>ID</th>
+                                <th>昵称</th>
+                                <th>账号</th>
+                                <th>用户编号</th>
+                                <th>家庭住址</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in list" class="text-c odd" role="row">
+                                <td class="">{{item.Id}}</td>
+                                <td class="">{{item.NickName}}</td>
+                                <td class="">{{item.Account}}</td>
+                                <td class="">{{item.Number}}</td>
+                                <td class="">{{item.Address}}</td>
+                                <td class="">{{item.IsDeleted}}</td>
+                                <td class="">2018-10-12 16:55:48</td>
+                                <td class="f-14 product-brand-manage">
+                                    <a style="text-decoration:none" href="javascript:;" title="编辑"><i class="Hui-iconfont"></i></a>
+                                    <a style="text-decoration:none" class="ml-5" href="javascript:;" title="删除"><i class="Hui-iconfont"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="float:right" id="pager"></div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+
+    <div class="row">11111111</div>
+</section>
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                pageIndex: 1,
+                pageSize: 15,
+                list: []
+            },
+
+            // 在 `methods` 对象中定义方法
+            methods: {
+                getlist: function () {
+                    $.get('/home/GetUserPageList', { pageIndex: this.pageIndex, pageSize: this.pageSize }, function (data) {
+                        app.list = data.List;
+                        // https://www.layui.com/demo/laypage.html
+                        var laypage = layui.laypage;
+                        //完整功能
+                        laypage.render({
+                            elem: 'pager'
+                          , count: data.RecordCount
+                          , curr: data.PageIndex
+                          , limit: data.PageSize
+                          , layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip']
+                          , jump: function (obj, first) {
+                              if (!first) {
+                                  app.pageIndex = obj.curr;
+                                  app.getlist();
+                              }
+                          }
+                        });
+                    })
+                }
+            },
+            mounted: function () {
+                this.getlist();
+            }
+        })
+
+    </script>
+}

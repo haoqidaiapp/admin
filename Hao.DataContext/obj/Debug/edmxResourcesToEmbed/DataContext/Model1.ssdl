@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Hao.Context.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DoctorInfoClinicalTrial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SysClinicalTrialId" Type="int" Nullable="false" />
+    <Property Name="SysDoctorInfoId" Type="int" Nullable="false" />
+    <Property Name="MatchNotice" Type="int" Nullable="false" />
+    <Property Name="AuditNotice" Type="int" Nullable="false" />
+    <Property Name="IsMainAccount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MatchQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="MatchingInfoId" Type="int" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="QuestionType" Type="int" Nullable="false" />
+    <Property Name="SysQuestionOptions" Type="nvarchar(max)" />
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="int" Nullable="false" />
+    <Property Name="MultipleAnswer" Type="nvarchar(max)" />
+    <Property Name="SingleAnswer" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MatchRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="MatchingResutl" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MatchRemarks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatorUserId" Type="int" Nullable="false" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="LastModificationTime" Type="datetime" />
+    <Property Name="LastModifierUserId" Type="int" />
+    <Property Name="MatchRecord_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="Source" Type="nvarchar" MaxLength="500" />
+    <Property Name="Label" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Content" Type="text" />
+    <Property Name="ClinicalTrialId" Type="int" Nullable="false" />
+    <Property Name="OrderNumber" Type="int" Nullable="false" />
+    <Property Name="IsRecommend" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PatientFile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="FileType" Type="int" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatorUserId" Type="int" Nullable="false" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysClinicalGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupCode" Type="nvarchar(max)" />
+    <Property Name="ItemCode" Type="nvarchar(max)" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="SysClinicalTrialId" Type="int" Nullable="false" />
+    <Property Name="SysQuestionId" Type="int" Nullable="false" />
+    <Property Name="SortNumber" Type="int" Nullable="false" />
+    <Property Name="MultipleAnswer" Type="nvarchar(max)" />
+    <Property Name="SingleAnswer" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysClinicalSimple">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="SysClinicalTrialId" Type="int" Nullable="false" />
+    <Property Name="SysQuestionId" Type="int" Nullable="false" />
+    <Property Name="SortNumber" Type="int" Nullable="false" />
+    <Property Name="MultipleAnswer" Type="nvarchar(max)" />
+    <Property Name="SingleAnswer" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdateTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysClinicalTrial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestRegistNum" Type="nvarchar(max)" />
+    <Property Name="TestName" Type="nvarchar(max)" />
+    <Property Name="DrugName" Type="nvarchar(max)" />
+    <Property Name="DrugTypeId" Type="int" Nullable="false" />
+    <Property Name="TreatmentTypeId" Type="int" Nullable="false" />
+    <Property Name="SubjectMinAge" Type="int" Nullable="false" />
+    <Property Name="SubjectMaxAge" Type="int" Nullable="false" />
+    <Property Name="RecruitStatueId" Type="int" Nullable="false" />
+    <Property Name="RecruitNumDomestic" Type="int" Nullable="false" />
+    <Property Name="RecruitNumForeign" Type="int" Nullable="false" />
+    <Property Name="MedicationTimeId" Type="int" Nullable="false" />
+    <Property Name="ExperimentalStagingId" Type="int" Nullable="false" />
+    <Property Name="SponsorId" Type="int" Nullable="false" />
+    <Property Name="RecruitmentAgencyId" Type="int" Nullable="false" />
+    <Property Name="RecruitmentHospitalId" Type="int" Nullable="false" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="MatchPeopleNum" Type="int" Nullable="false" />
+    <Property Name="IsRecommend" Type="bit" Nullable="false" />
+    <Property Name="MainDoctorInfoId" Type="int" />
+    <Property Name="RemoveGroupInfo" Type="nvarchar(max)" />
+    <Property Name="EntryGroupInfo" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifyTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysClinicalTrialSysDictionary">
+    <Key>
+      <PropertyRef Name="SysClinicalTrialId" />
+      <PropertyRef Name="SysDictionaryId" />
+    </Key>
+    <Property Name="SysClinicalTrialId" Type="int" Nullable="false" />
+    <Property Name="SysDictionaryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysDictionary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="200" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifyTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysDisease">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="200" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifyTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysDoctorInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DoctorName" Type="nvarchar(max)" />
+    <Property Name="DoctorPosition" Type="nvarchar(max)" />
+    <Property Name="Hospital" Type="nvarchar(max)" />
+    <Property Name="HospitalAddress" Type="nvarchar(max)" />
+    <Property Name="InitialPassword" Type="nvarchar(max)" />
+    <Property Name="RegistrationCall" Type="nvarchar(max)" />
+    <Property Name="IsSubAccount" Type="int" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="TrialsNum" Type="int" Nullable="false" />
+    <Property Name="IsProvideAssessment" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifyTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysOption">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="SysQuestionId" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="QuestionTypeId" Type="int" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysRelated">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SysQuestionOptionId" Type="int" />
+    <Property Name="SysQuestionId" Type="int" Nullable="false" />
+    <Property Name="SysOption_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="SysUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NickName" Type="nvarchar(max)" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Number" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_DoctorInfoClinicalTrial_dbo_SysClinicalTrial_SysClinicalTrialId">
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="1" />
+    <End Role="DoctorInfoClinicalTrial" Type="Self.DoctorInfoClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysClinicalTrial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorInfoClinicalTrial">
+        <PropertyRef Name="SysClinicalTrialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_DoctorInfoClinicalTrial_dbo_SysDoctorInfo_SysDoctorInfoId">
+    <End Role="SysDoctorInfo" Type="Self.SysDoctorInfo" Multiplicity="1" />
+    <End Role="DoctorInfoClinicalTrial" Type="Self.DoctorInfoClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDoctorInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorInfoClinicalTrial">
+        <PropertyRef Name="SysDoctorInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchQuestion_dbo_MatchRecord_MatchingInfoId">
+    <End Role="MatchRecord" Type="Self.MatchRecord" Multiplicity="1" />
+    <End Role="MatchQuestion" Type="Self.MatchQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MatchRecord">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchQuestion">
+        <PropertyRef Name="MatchingInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchRecord_dbo_Patient_PatientId">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="MatchRecord" Type="Self.MatchRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchRecord">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchRemarks_dbo_MatchRecord_MatchRecord_Id">
+    <End Role="MatchRecord" Type="Self.MatchRecord" Multiplicity="0..1" />
+    <End Role="MatchRemarks" Type="Self.MatchRemarks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MatchRecord">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchRemarks">
+        <PropertyRef Name="MatchRecord_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchRemarks_dbo_Patient_PatientId">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="MatchRemarks" Type="Self.MatchRemarks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchRemarks">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchRemarks_dbo_SysUser_CreatorUserId">
+    <End Role="SysUser" Type="Self.SysUser" Multiplicity="1" />
+    <End Role="MatchRemarks" Type="Self.MatchRemarks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchRemarks">
+        <PropertyRef Name="CreatorUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_MatchRemarks_dbo_SysUser_LastModifierUserId">
+    <End Role="SysUser" Type="Self.SysUser" Multiplicity="0..1" />
+    <End Role="MatchRemarks" Type="Self.MatchRemarks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MatchRemarks">
+        <PropertyRef Name="LastModifierUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_News_dbo_SysClinicalTrial_ClinicalTrialId">
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysClinicalTrial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="ClinicalTrialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PatientFile_dbo_Patient_PatientId">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientFile" Type="Self.PatientFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientFile">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PatientFile_dbo_SysUser_CreatorUserId">
+    <End Role="SysUser" Type="Self.SysUser" Multiplicity="1" />
+    <End Role="PatientFile" Type="Self.PatientFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientFile">
+        <PropertyRef Name="CreatorUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalGroup_dbo_SysClinicalTrial_SysClinicalTrialId">
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="1" />
+    <End Role="SysClinicalGroup" Type="Self.SysClinicalGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysClinicalTrial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalGroup">
+        <PropertyRef Name="SysClinicalTrialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalGroup_dbo_SysQuestion_SysQuestionId">
+    <End Role="SysQuestion" Type="Self.SysQuestion" Multiplicity="1" />
+    <End Role="SysClinicalGroup" Type="Self.SysClinicalGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysQuestion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalGroup">
+        <PropertyRef Name="SysQuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalSimple_dbo_SysClinicalTrial_SysClinicalTrialId">
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="1" />
+    <End Role="SysClinicalSimple" Type="Self.SysClinicalSimple" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysClinicalTrial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalSimple">
+        <PropertyRef Name="SysClinicalTrialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalSimple_dbo_SysQuestion_SysQuestionId">
+    <End Role="SysQuestion" Type="Self.SysQuestion" Multiplicity="1" />
+    <End Role="SysClinicalSimple" Type="Self.SysClinicalSimple" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysQuestion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalSimple">
+        <PropertyRef Name="SysQuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_DrugTypeId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="DrugTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_ExperimentalStagingId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="ExperimentalStagingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_MedicationTimeId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="MedicationTimeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentAgencyId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="RecruitmentAgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentHospitalId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="RecruitmentHospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitStatueId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="RecruitStatueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_SponsorId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="SponsorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_TreatmentTypeId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrial">
+        <PropertyRef Name="TreatmentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrialSysDictionary_dbo_SysClinicalTrial_SysClinicalTrialId">
+    <End Role="SysClinicalTrial" Type="Self.SysClinicalTrial" Multiplicity="1" />
+    <End Role="SysClinicalTrialSysDictionary" Type="Self.SysClinicalTrialSysDictionary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysClinicalTrial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrialSysDictionary">
+        <PropertyRef Name="SysClinicalTrialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysClinicalTrialSysDictionary_dbo_SysDictionary_SysDictionaryId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysClinicalTrialSysDictionary" Type="Self.SysClinicalTrialSysDictionary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysClinicalTrialSysDictionary">
+        <PropertyRef Name="SysDictionaryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysDisease_dbo_SysDisease_ParentId">
+    <End Role="SysDisease" Type="Self.SysDisease" Multiplicity="0..1" />
+    <End Role="SysDisease1" Type="Self.SysDisease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDisease">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysDisease1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysDoctorInfo_dbo_SysDoctorInfo_ParentId">
+    <End Role="SysDoctorInfo" Type="Self.SysDoctorInfo" Multiplicity="0..1" />
+    <End Role="SysDoctorInfo1" Type="Self.SysDoctorInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDoctorInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysDoctorInfo1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysOption_dbo_SysQuestion_SysQuestionId">
+    <End Role="SysQuestion" Type="Self.SysQuestion" Multiplicity="1" />
+    <End Role="SysOption" Type="Self.SysOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysQuestion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysOption">
+        <PropertyRef Name="SysQuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysQuestion_dbo_SysDictionary_QuestionTypeId">
+    <End Role="SysDictionary" Type="Self.SysDictionary" Multiplicity="1" />
+    <End Role="SysQuestion" Type="Self.SysQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysDictionary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysQuestion">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SysRelated_dbo_SysOption_SysOption_Id">
+    <End Role="SysOption" Type="Self.SysOption" Multiplicity="0..1" />
+    <End Role="SysRelated" Type="Self.SysRelated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysOption">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysRelated">
+        <PropertyRef Name="SysOption_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HaoContextStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorInfoClinicalTrial" EntityType="Self.DoctorInfoClinicalTrial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MatchQuestion" EntityType="Self.MatchQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MatchRecord" EntityType="Self.MatchRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MatchRemarks" EntityType="Self.MatchRemarks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientFile" EntityType="Self.PatientFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysClinicalGroup" EntityType="Self.SysClinicalGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysClinicalSimple" EntityType="Self.SysClinicalSimple" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysClinicalTrial" EntityType="Self.SysClinicalTrial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysClinicalTrialSysDictionary" EntityType="Self.SysClinicalTrialSysDictionary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysDictionary" EntityType="Self.SysDictionary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysDisease" EntityType="Self.SysDisease" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysDoctorInfo" EntityType="Self.SysDoctorInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysOption" EntityType="Self.SysOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysQuestion" EntityType="Self.SysQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysRelated" EntityType="Self.SysRelated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysUser" EntityType="Self.SysUser" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_DoctorInfoClinicalTrial_dbo_SysClinicalTrial_SysClinicalTrialId" Association="Self.FK_dbo_DoctorInfoClinicalTrial_dbo_SysClinicalTrial_SysClinicalTrialId">
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+      <End Role="DoctorInfoClinicalTrial" EntitySet="DoctorInfoClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_DoctorInfoClinicalTrial_dbo_SysDoctorInfo_SysDoctorInfoId" Association="Self.FK_dbo_DoctorInfoClinicalTrial_dbo_SysDoctorInfo_SysDoctorInfoId">
+      <End Role="SysDoctorInfo" EntitySet="SysDoctorInfo" />
+      <End Role="DoctorInfoClinicalTrial" EntitySet="DoctorInfoClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchQuestion_dbo_MatchRecord_MatchingInfoId" Association="Self.FK_dbo_MatchQuestion_dbo_MatchRecord_MatchingInfoId">
+      <End Role="MatchRecord" EntitySet="MatchRecord" />
+      <End Role="MatchQuestion" EntitySet="MatchQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchRecord_dbo_Patient_PatientId" Association="Self.FK_dbo_MatchRecord_dbo_Patient_PatientId">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="MatchRecord" EntitySet="MatchRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchRemarks_dbo_MatchRecord_MatchRecord_Id" Association="Self.FK_dbo_MatchRemarks_dbo_MatchRecord_MatchRecord_Id">
+      <End Role="MatchRecord" EntitySet="MatchRecord" />
+      <End Role="MatchRemarks" EntitySet="MatchRemarks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchRemarks_dbo_Patient_PatientId" Association="Self.FK_dbo_MatchRemarks_dbo_Patient_PatientId">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="MatchRemarks" EntitySet="MatchRemarks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchRemarks_dbo_SysUser_CreatorUserId" Association="Self.FK_dbo_MatchRemarks_dbo_SysUser_CreatorUserId">
+      <End Role="SysUser" EntitySet="SysUser" />
+      <End Role="MatchRemarks" EntitySet="MatchRemarks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_MatchRemarks_dbo_SysUser_LastModifierUserId" Association="Self.FK_dbo_MatchRemarks_dbo_SysUser_LastModifierUserId">
+      <End Role="SysUser" EntitySet="SysUser" />
+      <End Role="MatchRemarks" EntitySet="MatchRemarks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_News_dbo_SysClinicalTrial_ClinicalTrialId" Association="Self.FK_dbo_News_dbo_SysClinicalTrial_ClinicalTrialId">
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PatientFile_dbo_Patient_PatientId" Association="Self.FK_dbo_PatientFile_dbo_Patient_PatientId">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientFile" EntitySet="PatientFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PatientFile_dbo_SysUser_CreatorUserId" Association="Self.FK_dbo_PatientFile_dbo_SysUser_CreatorUserId">
+      <End Role="SysUser" EntitySet="SysUser" />
+      <End Role="PatientFile" EntitySet="PatientFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalGroup_dbo_SysClinicalTrial_SysClinicalTrialId" Association="Self.FK_dbo_SysClinicalGroup_dbo_SysClinicalTrial_SysClinicalTrialId">
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+      <End Role="SysClinicalGroup" EntitySet="SysClinicalGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalGroup_dbo_SysQuestion_SysQuestionId" Association="Self.FK_dbo_SysClinicalGroup_dbo_SysQuestion_SysQuestionId">
+      <End Role="SysQuestion" EntitySet="SysQuestion" />
+      <End Role="SysClinicalGroup" EntitySet="SysClinicalGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalSimple_dbo_SysClinicalTrial_SysClinicalTrialId" Association="Self.FK_dbo_SysClinicalSimple_dbo_SysClinicalTrial_SysClinicalTrialId">
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+      <End Role="SysClinicalSimple" EntitySet="SysClinicalSimple" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalSimple_dbo_SysQuestion_SysQuestionId" Association="Self.FK_dbo_SysClinicalSimple_dbo_SysQuestion_SysQuestionId">
+      <End Role="SysQuestion" EntitySet="SysQuestion" />
+      <End Role="SysClinicalSimple" EntitySet="SysClinicalSimple" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_DrugTypeId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_DrugTypeId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_ExperimentalStagingId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_ExperimentalStagingId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_MedicationTimeId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_MedicationTimeId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentAgencyId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentAgencyId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentHospitalId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitmentHospitalId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitStatueId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_RecruitStatueId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_SponsorId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_SponsorId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrial_dbo_SysDictionary_TreatmentTypeId" Association="Self.FK_dbo_SysClinicalTrial_dbo_SysDictionary_TreatmentTypeId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrialSysDictionary_dbo_SysClinicalTrial_SysClinicalTrialId" Association="Self.FK_dbo_SysClinicalTrialSysDictionary_dbo_SysClinicalTrial_SysClinicalTrialId">
+      <End Role="SysClinicalTrial" EntitySet="SysClinicalTrial" />
+      <End Role="SysClinicalTrialSysDictionary" EntitySet="SysClinicalTrialSysDictionary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysClinicalTrialSysDictionary_dbo_SysDictionary_SysDictionaryId" Association="Self.FK_dbo_SysClinicalTrialSysDictionary_dbo_SysDictionary_SysDictionaryId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysClinicalTrialSysDictionary" EntitySet="SysClinicalTrialSysDictionary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysDisease_dbo_SysDisease_ParentId" Association="Self.FK_dbo_SysDisease_dbo_SysDisease_ParentId">
+      <End Role="SysDisease" EntitySet="SysDisease" />
+      <End Role="SysDisease1" EntitySet="SysDisease" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysDoctorInfo_dbo_SysDoctorInfo_ParentId" Association="Self.FK_dbo_SysDoctorInfo_dbo_SysDoctorInfo_ParentId">
+      <End Role="SysDoctorInfo" EntitySet="SysDoctorInfo" />
+      <End Role="SysDoctorInfo1" EntitySet="SysDoctorInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysOption_dbo_SysQuestion_SysQuestionId" Association="Self.FK_dbo_SysOption_dbo_SysQuestion_SysQuestionId">
+      <End Role="SysQuestion" EntitySet="SysQuestion" />
+      <End Role="SysOption" EntitySet="SysOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysQuestion_dbo_SysDictionary_QuestionTypeId" Association="Self.FK_dbo_SysQuestion_dbo_SysDictionary_QuestionTypeId">
+      <End Role="SysDictionary" EntitySet="SysDictionary" />
+      <End Role="SysQuestion" EntitySet="SysQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SysRelated_dbo_SysOption_SysOption_Id" Association="Self.FK_dbo_SysRelated_dbo_SysOption_SysOption_Id">
+      <End Role="SysOption" EntitySet="SysOption" />
+      <End Role="SysRelated" EntitySet="SysRelated" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

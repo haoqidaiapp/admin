@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content" id="app">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        字典管理
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb"><li><span id="test"><i class="fa fa-navicon"></i> 字典管理</span></li></ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" v-on:click="add()" class="btn btn-primary btn-xs" style="margin-top:8px; margin-right:8px;">
+                    <i class="fa  fa-plus">
+                    </i>新增
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="float:right">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <select name="delivery" class="form-control input-sm" v-model="OptionType">
+                        <option :value="0">请选择选项类型</option>
+                        <option v-for="item in typeList" :value="item.Value">{{item.DisplayText}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12 col-sm-12">
+
+            <table class="table table-border table-bordered radius  table-bg">
+                <thead>
+                    <tr class="text-c" role="row">
+                        <th>#</th>
+                        <th>选项类型</th>
+                        <th>选项名称</th>
+                        <th>排序编号</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in list" class="text-c odd" role="row">
+                        <td class="">{{ index+1 }}</td>
+                        <td class="">{{item.TypeStr}}</td>
+                        <td class="">{{item.Value}}</td>
+                        <td class="">{{item.Sort}}</td>
+                        <td class="">{{item.CreateTimeStr}}</td>
+                        <td class="">{{item.ModifyTimeStr}}</td>
+                        <td class="f-14 product-brand-manage" width="150">
+                            <a href="#" v-on:click="edit(item)" class="btn btn-xs grey-cascade">编辑 <i class="fa fa-edit"></i></a>
+                            <a href="#" v-on:click="remove(item.Id)" class="btn btn-xs red">删除 <i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="float: right" id="pager"></div>
+        </div>
+    </div>
+
+
+    <!-- 编辑用户信息 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> <i class="fa fa-edit"></i> 填写数据</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">
+                                选项类型
+                                <span class="required" aria-required="true">* </span>
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" v-model="dto.Type">
+                                    <option value="" selected="selected">请选择选项类型</option>
+                                    <option v-for="item in typeList" :value="item.Value">{{item.DisplayText}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">
+                                选项名称
+                                <span class="required" aria-required="true">* </span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" v-model="dto.Value" placeholder="请输入选项名字">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">
+                                排序编号
+                                <span class="required" aria-required="true"> </span>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" v-model="dto.Sort" placeholder="排序编号">
+                                <span class="help-block">填写的数值越小则排序在最前，非必填，默认为0</span>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" v-on:click="save()" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                pageIndex: 1,
+                pageSize: 15,
+                list: [],
+                dto: {},
+                OptionType: '0',
+                typeList: []
+            },
+            watch: {
+                OptionType: function (val) {
+                    app.getlist();
+                }
+            },
+            // 在 `methods` 对象中定义方法
+            methods: {
+                // 获得列表
+                getlist: function () {
+                    $.get('/System/GetPageList', { pageIndex: this.pageIndex, pageSize: this.pageSize, OptionType: this.OptionType }, function (data) {
+                        app.list = data.List;
+                        // https://www.layui.com/demo/laypage.html
+                        var laypage = layui.laypage;
+                        //完整功能
+                        laypage.render({
+                            elem: 'pager',
+                            count: data.RecordCount,
+                            curr: data.PageIndex,
+                            limit: data.PageSize,
+                            layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip'],
+                            jump: function (obj, first) {
+                                if (!first) {
+                                    app.pageIndex = obj.curr;
+                                    app.getlist();
+                                }
+                            }
+                        });
+                    });
+                },
+
+                // 删除
+                remove: function (id) {
+                    $.get('/System/DeleteById', { id: id }, function (data) {
+                        app.getlist();
+                        stluciabj.Msg.showSuccess();
+                    });
+                },
+                //新增
+                add: function () {
+                    $("#editModal").modal('show');
+                },
+                // 编辑
+                edit: function (item) {
+                    this.dto = item;
+                    this.dto.CreateTime = "";
+                    this.dto.ModifyTime = "";
+                    console.log(this.dto);
+                    $("#editModal").modal('show');
+                },
+
+                // 保存
+                save: function () {
+                    var modelstr = JSON.stringify(app.dto);
+                    $.get('/System/Edit', { model: modelstr }, function (data) {
+                        app.getlist();
+                        stluciabj.Msg.showSuccess();
+                        $("#editModal").modal('hide');
+                    });
+                }
+            },
+            mounted: function () {
+                this.getlist();
+
+                $('#editModal').on('hide.bs.modal', function () {
+                    app.dto = {};
+                });
+            }
+        })
+
+    </script>
+}
+

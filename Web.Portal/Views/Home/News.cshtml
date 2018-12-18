@@ -1,0 +1,177 @@
+﻿<div class="page-content" id="app">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        系统首页 <small>统计 & 报表</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="index.html">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">数据中心</a>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12 col-sm-12">
+
+            <table class="table table-border table-bordered radius  table-bg">
+                <thead>
+                    <tr class="text-c" role="row">
+                        <th>会员ID</th>
+                        <th>会员昵称</th>
+                        <th>唯一编号</th>
+                        <th>登录账号</th>
+                        <th>家庭住址</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in list" class="text-c odd" role="row">
+                        <td class="">{{item.Id}}</td>
+                        <td class="">{{item.NickName}}</td>
+                        <td class="">{{item.Number}}</td>
+                        <td class="">{{item.Account}}</td>
+                        <td class="">{{item.Address}}</td>
+                        <td class="">{{item.IsDeleted}}</td>
+                        <td class="">2018-10-12 16:55:48</td>
+                        <td class="f-14 product-brand-manage" width="150">
+                            <a href="#" v-on:click="edit(item)" class="btn btn-xs grey-cascade">编辑 <i class="fa fa-edit"></i></a>
+                            <a href="#" v-on:click="remove(item.Id)" class="btn btn-xs red">删除 <i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="float: right" id="pager"></div>
+        </div>
+    </div>
+
+
+    <!-- 编辑用户信息 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> <i class="fa fa-edit"></i> 编辑用户信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">用户账号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="dto.Account" placeholder="用户账号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">用户昵称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="dto.NickName" placeholder="用户昵称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">用户编号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="dto.Number" placeholder="用户编号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">家庭住址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="dto.Address" placeholder="家庭住址">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" v-on:click="save()" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                pageIndex: 1,
+                pageSize: 15,
+                list: [],
+                dto: {}
+            },
+
+            // 在 `methods` 对象中定义方法
+            methods: {
+
+                // 获得列表
+                getlist: function () {
+                    $.get('/home/GetUserPageList', { pageIndex: this.pageIndex, pageSize: this.pageSize }, function (data) {
+                        app.list = data.List;
+                        // https://www.layui.com/demo/laypage.html
+                        var laypage = layui.laypage;
+                        //完整功能
+                        laypage.render({
+                            elem: 'pager',
+                            count: data.RecordCount,
+                            curr: data.PageIndex,
+                            limit: data.PageSize,
+                            layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip'],
+                            jump: function (obj, first) {
+                                if (!first) {
+                                    app.pageIndex = obj.curr;
+                                    app.getlist();
+                                }
+                            }
+                        });
+                    });
+                },
+
+                // 删除
+                remove: function (id) {
+                    $.get('/home/DeleteUserById', { id: id }, function (data) {
+                        app.getlist();
+                        stluciabj.Msg.showSuccess();
+                    });
+                },
+
+                // 编辑
+                edit: function (item) {
+                    this.dto = item;
+                    console.log(this.dto);
+                    $("#editModal").modal('show');
+                },
+
+                // 保存
+                save: function () {
+                    var modelstr = JSON.stringify(app.dto);
+                    $.get('/home/Edit', { model: modelstr }, function (data) {
+                        app.getlist();
+                        stluciabj.Msg.showSuccess();
+                        $("#editModal").modal('hide');
+                    });
+                }
+            },
+            mounted: function () {
+                this.getlist();
+
+                $('#editModal').on('hide.bs.modal', function () {
+                    app.dto = {};
+                });
+            }
+        })
+
+    </script>
+}
